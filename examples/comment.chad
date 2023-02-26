@@ -1,0 +1,5 @@
+// some comment
+let x = 5; // more comments
+let y = 10;
+// another one
+println(x);

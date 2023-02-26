@@ -1,0 +1,20 @@
+use std::math::*;
+
+fn sec() {
+    let i = 1;
+
+    for x in 1..20 {
+        println("i is: ", i);
+
+        // i = true;
+        i = i + 1;
+
+        if i > 10 {
+            return;
+        }
+    }
+}
+
+fn main() {
+    sec();
+}

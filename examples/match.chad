@@ -1,0 +1,7 @@
+let x = 5;
+match x {
+    0 => println!("x is zero"),
+    1 | 2 => println!("x is one or two"),
+    3...10 => println!("x is between 3 and 10"),
+    _ => println!("x is something else"),
+}

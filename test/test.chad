@@ -1,0 +1,277 @@
+// general test for all aspects of the language
+// passing proves that all language constructs are working
+// execution must complete
+
+// single line comment
+
+/* 
+			multiline comment
+		i can
+	do 				whatever 		i want
+	
+*/
+
+
+// trivial function
+fn first_func(){
+	println("Hello Chad!");
+}
+
+// function with typed parameters and typed return value
+fn add_numbers_typed(x: int, y: int) -> int {
+	let ans: int = x + y;
+	
+	return ans;
+}
+
+// function with parameters and return value
+fn add_numbers(x, y) {
+	let ans = x + y;
+	
+	return ans;
+}
+
+// function with empty return
+fn empty_return(){
+	let a = 6;
+
+	return;
+}
+
+fn empty_function(){
+	
+}
+
+// mathematical expressions
+fn simple_math(){
+	let a = 5;
+	let b = 10;
+
+	let c = a + b;
+	let d = b - a;
+	let e = a * b;
+	let f = b / a;
+
+	let g = a + b + a + a + b - a / b * a;
+
+	println("a is: ", a);
+	println("b is: ", b);
+	println("c is: ", c);
+	println("d is: ", d);
+	println("e is: ", e);
+	println("f is: ", f);
+	println("g is: ", g);
+}
+
+// variables
+fn variables(){
+	// string
+	let a = "Hello String";
+	println("string is: ", a);
+
+	// char
+	let b = 'X';
+	println("char is: ", b);
+
+	// bool
+	let c = true;
+	println("bool is: ", c);
+	let d = false;
+	println("bool is: ", d);
+
+	// int
+	let e = 5;
+	println("int is: ", e);
+
+	// float
+	let f = 10.364;
+	println("float is: ", f);
+
+	// binary
+	let g = 0b11011;
+	println("binary is: ", g);
+
+	// octal
+	let h = 0763;
+	println("octal is: ", h);
+	
+	// hexadecimal
+	let i = 0x23;
+	println("hex is: ", i);
+}
+
+// typed variables
+fn variables_typed(){
+	// string
+	let a: str = "Hello String";
+	println("string is: ", a);
+
+	// char
+	let b: char = 'X';
+	println("char is: ", b);
+
+	// bool
+	let c: bool = true;
+	println("bool is: ", c);
+	let d: bool = false;
+	println("bool is: ", d);
+
+	// int
+	let e: int = 5;
+	println("int is: ", e);
+
+	// float
+	let f: float = 10.364;
+	println("float is: ", f);
+
+	// binary
+	let g: int = 0b11011;
+	println("binary is: ", g);
+
+	// octal
+	let h: int = 0763;
+	println("octal is: ", h);
+	
+	// hexadecimal
+	let i: int = 0x23;
+	println("hex is: ", i);
+}
+
+// infinite loop
+fn infinite_loop(){
+	println("starting infinite loop");	
+	loop{
+		// println("forever!!!");		
+	}
+}
+
+// for loop
+fn for_loop(){
+	for i in 1..5{
+		println("for loop: ", i);
+	}
+}
+
+fn conditionals(){
+	let c = true;
+	let a = 5;
+	let b = 6;
+	
+	if 4 < 8 {
+		println("if statement");
+	}
+
+	
+	if c {
+		println("true!!");
+	}
+
+	if a {
+		println("number!!");
+	}
+	
+	if a == a {
+		println("equal!!");
+	}
+	
+	if a != b {
+		println("not equal!!");
+	}
+
+	
+	if b > a {
+		println("greater!!");
+	}
+
+	if a < b {
+		println("less!!");
+	}
+
+	if 9 >= 5 {
+		println("greater or equal!!");
+	}
+
+	if 4 <= 9 {
+		println("less or equal!!");
+	}
+	
+	if !false || false {
+		println("logical OR!!");
+	}
+
+	if true && !false {
+		println("logical AND!!");
+	}
+
+	if true {
+		println("if!!!");
+	} else {
+		println("else!!");
+	}
+
+	if !true {
+		println("if!!!");
+	} else {
+		println("else!!");
+	}
+	
+	if false {
+		println("what???");
+	} else if true {
+		println("else if 1 !!");
+	} else if false {
+		println("else if 2 !!!");
+	}
+
+	
+	if false {
+		println("what???");
+	} else if false {
+		println("else if 1 !!");
+	} else if false {
+		println("else if 2!!!");
+	} else {
+		println("else!!");
+	}
+}
+
+// redefine a variable
+fn redefine(){
+	let a = 5;
+
+	println("a was: ", a);
+
+	a = 6;
+
+	println("a is now: ", a);
+}
+
+// entry
+fn main(){
+	first_func();
+
+	empty_return();
+
+	empty_function();
+
+	for_loop();
+		
+	simple_math();
+		
+	variables();
+
+	variables_typed();
+
+	redefine();
+
+	conditionals();
+	
+
+	let res: int = add_numbers(5, 10);
+	println("res 1 is: ", res);
+	
+	let res2: int = add_numbers_typed(5, 12);
+	println("res 2 is: ", res2);
+
+	// infinite_loop();
+}

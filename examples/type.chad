@@ -1,0 +1,26 @@
+let a: str = "Hello String";
+println(a);
+
+let b: char = 'K';
+println(b);
+
+let c: bool = true;
+println(c);
+
+let d: bool = false;
+println(d);
+
+let e: float = 10.364;
+println(e);
+
+let d: int = 5;
+println(e);
+
+// let e = 0x23;
+// print(e);
+
+// let f: int = 0b11011;
+// println(f);
+
+// let g: int = 0763;
+// println!(g);

@@ -1,0 +1,11 @@
+// META
+let name = "chad";
+let version = "0.7.2";
+
+// COMMANDS
+let test = "./test/test.chad";
+let test2 = "./test/test2.chad";
+let remote = "http://127.0.0.1:8080/hello-chad.chad";
+// let all = test;
+
+// FLAGS

@@ -1,0 +1,15 @@
+[package]
+name = "libchad"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "libchad"
+crate-type = ["staticlib"]
+
+[profile.release]
+opt-level = 3
+lto = true
+
+[dependencies]
+libc = "0.2"

@@ -1,0 +1,16 @@
+fn main(){
+	let a = 5;
+	let b = 10;
+
+	let c = a + b;
+	let d = b - a;
+	let e = a * b;
+	let f = b / a;
+
+	println(a);
+	println(b);
+	println(c);
+	println(d);
+	println(e);
+	println(f);
+}

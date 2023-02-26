@@ -1,0 +1,13 @@
+fn add(~) -> int {
+    println("add!!");
+
+    let ans = __vars__0 + __vars__1;
+
+    return ans;
+}
+
+fn inc(a) -> int {
+    let res = a + 1;
+
+    return res;
+}

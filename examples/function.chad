@@ -1,0 +1,11 @@
+let res1: int = add_numbers(5, 10);
+
+println("Res1 is: ", res1);
+
+fn add_numbers(x: int, y: int) -> int {
+    return x + y;
+}
+
+let res2: int = add_numbers(5, 10);
+
+println("Res2 is: ", res2);

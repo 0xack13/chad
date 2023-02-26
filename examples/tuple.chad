@@ -1,0 +1,3 @@
+let point = (3, 4);
+println!("The value of x is: {}", point.0);
+println!("The value of y is: {}", point.1);

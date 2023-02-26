@@ -1,0 +1,9 @@
+fn main(){
+	let message = "Hello Chad!";
+
+	println(message);
+}
+
+fn my_function(){
+  println("Hello from my_function");
+}

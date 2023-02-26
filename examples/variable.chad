@@ -1,0 +1,39 @@
+// This test is focussed on assignment, reassignment and variable-to-variable relationships
+// scope is handled in scope.chad and types in type.chad
+
+
+fn main() {
+
+// string
+let a = "Hello String";
+println(a);
+
+// char
+let b = 'K';
+println(b);
+
+// bool
+let c = true;
+println(c);
+let d = false;
+println(d);
+
+// int
+let e = 5;
+println(e);
+
+// float
+let f = 10.364;
+println(f);
+
+let g: int = 0b11011;
+println(g);
+
+let h: int = 0763;
+println(h);
+	
+let i = 0x23;
+println(i);
+
+
+}

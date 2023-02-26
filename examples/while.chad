@@ -1,0 +1,5 @@
+let mut x = 5;
+while x > 0 {
+    println!("The value of x is: {}", x);
+    x -= 1;
+}
