@@ -24,8 +24,10 @@ char *ast_type_to_str(tracker_t *tracker, ast_type_t type) {
     return "VARIABLE";
   case AST_ARITHMETIC_OPERATOR:
     return "ARITHMETIC OPERATOR";
+  case AST_EXPRESSION:
+    return "ARITHMETIC EXPRESSION";
   default: {
-    log_error(tracker, "%d is not a type at line %d", type);
+    log_error(tracker, "%d is not an ast type at line %d", type);
   }
   }
 }

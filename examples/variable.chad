@@ -1,39 +1,59 @@
-// This test is focussed on assignment, reassignment and variable-to-variable relationships
-// scope is handled in scope.chad and types in type.chad
-
+// Variable declaration and assignment
 
 fn main() {
+    // string
+    let a = "Hello String";
+    println(a);
 
-// string
-let a = "Hello String";
-println(a);
+    // char
+    let b = 'K';
+    println(b);
 
-// char
-let b = 'K';
-println(b);
+    // bool
+    let c = true;
+    println(c);
+    let d = false;
+    println(d);
 
-// bool
-let c = true;
-println(c);
-let d = false;
-println(d);
+    // int
+    let e = 5;
+    println(e);
 
-// int
-let e = 5;
-println(e);
+    // float
+    let f = 10.364;
+    println(f);
 
-// float
-let f = 10.364;
-println(f);
+    // Binary integer
+    let g = 0b11011;
+    println(g);
 
-let g: int = 0b11011;
-println(g);
+    // Octal integer
+    let h = 0763;
+    println(h);
 
-let h: int = 0763;
-println(h);
-	
-let i = 0x23;
-println(i);
+    // Hexadecimal integer
+    let i = 0x23;
+    println(i);
 
+    // Types can be specified
+    let mystr: str = "Hello String";
 
+    let mychar: char = 'K';
+
+    let mybool: bool = true;
+
+    let myint: int = 5;
+
+    let myfloat: float = 10.364;
+
+    // values can be changed/reassigned
+    mystr = "Changed string";
+
+    mychar = 'W';
+
+    mybool = false;
+
+    myint = 345;
+
+    myfloat = 22.2;
 }

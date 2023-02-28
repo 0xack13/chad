@@ -1,5 +1,12 @@
 // some comment
-let x = 5; // more comments
-let y = 10;
-// another one
-println(x);
+
+fn main() {
+    let x = 5; // another comment
+
+    /* a
+            multiline
+                comment
+    */
+
+    let y = 10;
+}

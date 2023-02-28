@@ -1,4 +1,4 @@
-use std::math::*;
+// use std::math::*;
 
 fn sec() {
     let i = 1;
@@ -15,6 +15,10 @@ fn sec() {
     }
 }
 
+fn first() {
+    return first();
+}
+
 fn main() {
-    sec();
+    first();
 }

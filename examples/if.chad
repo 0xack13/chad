@@ -1,79 +1,77 @@
+// If-else statements and conditionals
+
 fn main() {
-	let mystr = "mystring";
-	let a = 5;
-	let b = 6;
-	let c = true;
-	let d = false;
-	
+    let mystr = "my string";
+    let a = 5;
+    let b = 6;
+    let c = true;
+    let d = false;
 
-	if 0 {
-		println("zero????");
-	}
-	
-	if d {
-		println("false????");
-	}
-	
-	if c {
-		println("true!!");
-	}
+    if 0 {
+        println("zero????");
+    }
 
-	if a {
-		println("number!!");
-	}
-	
-	if a == a {
-		println("equal!!");
-	}
-	
-	if a != b {
-		println("not equal!!");
-	}
+    if d {
+        println("false????");
+    }
 
-	
-	if b > a {
-		println("greater!!");
-	}
+    if c {
+        println("true!!");
+    }
 
-	if a < b {
-		println("less!!");
-	}
+    if a {
+        println("number!!");
+    }
 
-	if 9 >= 5 {
-		println("greater or equal to!!");
-	}
+    if a == a {
+        println("equal!!");
+    }
 
-	if 4 <= 9 {
-		println("less or equal to!!");
-	}
-	
-	if !false || false {
-		println("logical!!");
-	}
+    if a != b {
+        println("not equal!!");
+    }
 
+    if b > a {
+        println("greater!!");
+    }
 
-	if false {
-		println("if body!!!");
-	} else {
-		println("else body!!");
-	}
+    if a < b {
+        println("less!!");
+    }
 
-	if false {
-		println("what???");
-	} else if true {
-		println("else if 1 !!");
-	} else if false {
-		println("else if 2 !!!");
-	}
+    if 9 >= 5 {
+        println("greater or equal to!!");
+    }
 
-	
-	if false {
-		println("what???");
-	} else if false {
-		println("else if 1 !!");
-	} else if false {
-		println("else if 2!!!");
-	} else {
-		println("else!!");
-	}
+    if 4 <= 9 {
+        println("less or equal to!!");
+    }
+
+    if !false || false {
+        println("logical!!");
+    }
+
+    if false {
+        println("if body!!!");
+    } else {
+        println("else body!!");
+    }
+
+    if false {
+        println("what???");
+    } else if true {
+        println("else if 1 !!");
+    } else if false {
+        println("else if 2 !!!");
+    }
+
+    if false {
+        println("what???");
+    } else if false {
+        println("else if 1 !!");
+    } else if false {
+        println("else if 2!!!");
+    } else {
+        println("else!!");
+    }
 }

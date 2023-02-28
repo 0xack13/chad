@@ -1,0 +1,15 @@
+// infinite loop
+
+fn main() {
+    let i = 1;
+
+    loop {
+        println(i);
+
+        if i >= 11 {
+            break;
+        }
+
+        i = i + 1;
+    }
+}

@@ -1,4 +1,4 @@
-fn fibonacci(n: u32) -> u32 {
+fn fibonacci(n: int) -> int {
     if n == 0 || n == 1 {
         return n;
     }

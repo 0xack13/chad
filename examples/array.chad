@@ -1,4 +1,9 @@
-let numbers = [1, 2, 3, 4, 5];
-for i in 0..numbers.len() {
-    println!("The value at index {} is: {}", i, numbers[i]);
+// Arrays (UNIMPLEMENTED)
+
+fn main() {
+    let numbers = [1, 2, 3, 4, 5];
+
+    for i in 0..numbers.len() {
+        println("The value at index ", i, "is: " numbers[i]);
+    }
 }

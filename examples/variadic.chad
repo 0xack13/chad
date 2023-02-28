@@ -1,0 +1,18 @@
+// Variadic functions, with variable number of arguments
+
+fn myfunc(~) {
+  if __vars__size == 1 {
+    println("fisrt is: ", __vars__0);
+  } else if __vars__size == 2 {
+    println("first is: ", __vars__0);
+    println("second is: ", __vars__1);
+  }
+}
+
+fn main(){
+  myfunc(5);
+
+  myfunc(true, 34);
+
+  myfunc("Hello there!", 44);
+}
