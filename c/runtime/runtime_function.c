@@ -12,8 +12,10 @@ AST_T *visit_function_definition(visitor_t *visitor, AST_T *node) {
   return node;
 }
 
-AST_T *visit_return_statement(visitor_t *visitor, AST_T *node) { return node; }
+// AST_T *visit_return_statement(visitor_t *visitor, AST_T *node) { return node; }
 
+
+// BUG: function add_numbers chad example returns invalid sums
 AST_T *visit_function_call(visitor_t *visitor, AST_T *node) {
 
   AST_T *fdef = scope_get_function_definition(visitor->tracker, node->scope,
@@ -47,7 +49,7 @@ AST_T *visit_function_call(visitor_t *visitor, AST_T *node) {
       AST_T *ast_var = (AST_T *)fdef->function_definition_args[i];
 
       // grab the value from the function call arguments
-      AST_T *ast_value = (AST_T *)node->function_call_arguments[i];
+      AST_T *ast_value = visit(visitor, node->function_call_arguments[i]);
 
       // create a new variable definition with the value of the argument
       // in the function call.
@@ -55,7 +57,7 @@ AST_T *visit_function_call(visitor_t *visitor, AST_T *node) {
       ast_vardef->variable_definition_value = ast_value;
 
       // BUG: getting error if func parameter type is not specified
-      if (ast_var->type != ast_value->type && ast_value->type != AST_VARIABLE) {
+      if (ast_var->type != ast_value->type && ast_var->type != AST_VARIABLE) {
         log_error(visitor->tracker,
                   "invalid type passed to function `%s`. expected %s "
                   "found %s",
@@ -206,7 +208,7 @@ AST_T *visit_block(visitor_t *visitor, AST_T *node) {
       if (this_node->returned_value != NULL) {
         AST_T *returned_value = visit(visitor, this_node->returned_value);
 
-        // override the type if it is a varuiable
+        // override the type if it is a variable
         if (node->scope->return_type == AST_VARIABLE) {
           node->scope->return_type = returned_value->type;
         }

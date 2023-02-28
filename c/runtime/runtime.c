@@ -32,9 +32,9 @@ AST_T *visit(visitor_t *visitor, AST_T *node) {
     return visit_function_definition(visitor, node);
     break;
 
-  case AST_RETURN_STATEMENT:
-    return visit_return_statement(visitor, node);
-    break;
+  // case AST_RETURN_STATEMENT:
+    // return visit_return_statement(visitor, node);
+    // break;
 
   case AST_BREAK_STATEMENT:
     return visit_break_statement(visitor, node);

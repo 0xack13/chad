@@ -1,24 +1,23 @@
 // use std::math::*;
 
-fn sec() {
-    let i = 1;
+fn add_numbers(x, y) {
+    let result = x + y;
 
-    for x in 1..20 {
-        println("i is: ", i);
+    println("x is: ", x, ", res is: ", result);
 
-        // i = true;
-        i = i + 1;
-
-        if i > 10 {
-            return;
-        }
-    }
+    return result;
 }
 
 fn first() {
-    return first();
+    first();
 }
 
 fn main() {
-    first();
+    // first();
+
+    let res = add_numbers(5, 10);
+    println(res);
+
+    let res2 = add_numbers(20, 10);
+    println(res2);
 }
