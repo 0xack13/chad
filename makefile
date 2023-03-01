@@ -42,7 +42,15 @@ version:
 clean: make_dir
 	rm target/*
 
-./target/chad: make_dir ./c/include/*/*.h $(sources)
+precompile:
+	cd rust/libchad && cargo build --quiet --release
+	gcc -DPRECOMPILE -w -Os -o ./target/chad $(sources) -lcurl -L./rust/libchad/target/release -llibchad
+	strip ./target/chad
+
+	xxd -i ./target/chad > ./target/chad_precompiled.h
+
+
+./target/chad: make_dir ./c/include/*/*.h $(sources) precompile
 	cd rust/libchad && cargo build --quiet --release
 	gcc -w -Os -o $@ $(sources) -lcurl -L./rust/libchad/target/release -llibchad
 	strip $@

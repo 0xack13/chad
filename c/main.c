@@ -4,12 +4,17 @@
 #include "include/utils/log.h"
 #include "include/utils/utils.h"
 
-#include "include/chad_precompiled.h"
+#ifndef PRECOMPILE
+#include "../target/chad_precompiled.h"
+#endif
 
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
+
+#ifndef PRECOMPILE
+
   chad_args_t chad_args = PARSE_ARGS(argc, argv);
 
   if (chad_args.help) {
@@ -34,7 +39,7 @@ int main(int argc, char **argv) {
 
     system("chmod +x chad.out");
 
-    log_print("Finished");
+    log_print("Finished!");
     exit(0);
   }
 
@@ -48,6 +53,21 @@ int main(int argc, char **argv) {
   } else {
     file_contents = read_file_to_string(chad_args.filename);
   }
+
+#endif
+
+#ifdef PRECOMPILE
+  chad_args_t chad_args = {.filename = "chad.out.chad",
+                           .help = 0,
+                           .version = 0,
+                           .start = "main",
+                           .no_args = 0,
+                           .compile = 0};
+
+  int remote = 0;
+
+  char *file_contents = "fn main(){println(\"Hey there!\");}";
+#endif
 
   if (!file_has_extension(chad_args.filename, ".chad") &&
       !file_has_extension(chad_args.filename, ".chd")) {
