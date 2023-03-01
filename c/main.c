@@ -11,6 +11,57 @@
 #include <stdio.h>
 #include <string.h>
 
+char *str_replace(char *str, const char *old, const char *new) {
+  char *result;
+  int i, count = 0;
+  size_t newlen = strlen(new);
+  size_t oldlen = strlen(old);
+
+  for (i = 0; str[i] != '\0';) {
+    if (strstr(&str[i], old) == &str[i]) {
+      count++;
+      i += oldlen;
+    } else {
+      i++;
+    }
+  }
+
+  result = (char *)malloc(i + count * (newlen - oldlen) + 1);
+
+  i = 0;
+  while (*str) {
+    if (strstr(str, old) == str) {
+      strcpy(&result[i], new);
+      i += newlen;
+      str += oldlen;
+    } else {
+      result[i++] = *str++;
+    }
+  }
+
+  result[i] = '\0';
+  return result;
+}
+
+char *replace_newlines_with_escapes(char *str) {
+  size_t len = strlen(str);
+  char *escaped_str = (char *)malloc(
+      len * 2 + 1); // allocate enough memory for worst-case scenario
+  size_t j = 0;
+
+  for (size_t i = 0; i < len; i++) {
+    if (str[i] == '\n') {
+      escaped_str[j++] = '\\';
+      escaped_str[j++] = 'n';
+    } else {
+      escaped_str[j++] = str[i];
+    }
+  }
+
+  escaped_str[j] = '\0'; // null-terminate the string
+  return escaped_str;
+}
+
 int main(int argc, char **argv) {
 
 #ifdef PRECOMPILE
@@ -53,7 +104,7 @@ int main(int argc, char **argv) {
 
     file_contents = read_file_to_string(chad_args.filename);
 
-    system("mkdir -p tmp");
+    system("mkdir -p tmp && cd tmp && rm ./*.o ./*.a ./*.c");
 
     FILE *out_file = fopen("./tmp/chad_precompiled.a", "wb");
     fwrite(__target_chad_precompiled_a, sizeof(__target_chad_precompiled_a), 1,
@@ -66,6 +117,18 @@ int main(int argc, char **argv) {
 
     system("cd tmp && touch tmp_src.c");
 
+    //
+    FILE *tmp_file = fopen("./tmp/tmp_src.c", "a");
+
+    fprintf(tmp_file, "char* start_fn = \"%s\"; \n", chad_args.start);
+
+    fprintf(tmp_file, "char* filename = \"%s\"; \n", chad_args.filename);
+
+    char *contents = str_replace(file_contents, "\"", "\\\"");
+    char *escaped_contents = replace_newlines_with_escapes(contents);
+    fprintf(tmp_file, "char *file_contents = \"%s\"; \n", escaped_contents);
+
+    fclose(tmp_file);
     // char tmp_buff[256];
 
     // sprintf(tmp_buff, "%s", );
@@ -74,9 +137,11 @@ int main(int argc, char **argv) {
 
     system("cd tmp && gcc -c tmp_src.c");
 
-    system("ld ./tmp/*.o -o final -lc -lcurl -lpthread -L./tmp/ -llibchad");
+    // FIXME: linking fails because of rust library
+    system("ld ./tmp/*.o -o final -lc -lcurl -L./tmp/ -llibchad -lc "
+           "-L/usr/lib/gcc/x86_64-linux-gnu/12/ -lgcc_s");
 
-    // system("chmod +x ");
+    system("chmod +x final");
 
     log_print("Finished!");
     exit(0);
