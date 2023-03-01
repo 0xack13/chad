@@ -13,6 +13,20 @@
 
 int main(int argc, char **argv) {
 
+
+#ifdef PRECOMPILE
+  chad_args_t chad_args = {.filename = "chad.out",
+                           .help = 0,
+                           .version = 0,
+                           .start = "main",
+                           .no_args = 0,
+                           .compile = 0};
+
+  int remote = 0;
+
+  char *file_contents = "fn main(){println(\"Hey there!\");}";
+#endif
+
 #ifndef PRECOMPILE
 
   chad_args_t chad_args = PARSE_ARGS(argc, argv);
@@ -54,19 +68,6 @@ int main(int argc, char **argv) {
     file_contents = read_file_to_string(chad_args.filename);
   }
 
-#endif
-
-#ifdef PRECOMPILE
-  chad_args_t chad_args = {.filename = "chad.out.chad",
-                           .help = 0,
-                           .version = 0,
-                           .start = "main",
-                           .no_args = 0,
-                           .compile = 0};
-
-  int remote = 0;
-
-  char *file_contents = "fn main(){println(\"Hey there!\");}";
 #endif
 
   if (!file_has_extension(chad_args.filename, ".chad") &&
