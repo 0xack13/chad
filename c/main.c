@@ -14,16 +14,19 @@
 int main(int argc, char **argv) {
 
 #ifdef PRECOMPILE
-  chad_args_t chad_args = {.filename = "chad.out",
+  extern char *filename;
+  extern char *start_fn;
+
+  chad_args_t chad_args = {.filename = filename,
                            .help = 0,
                            .version = 0,
-                           .start = "main",
+                           .start = start_fn,
                            .no_args = 0,
                            .compile = 0};
 
   int remote = 0;
 
- extern char *file_contents;
+  extern char *file_contents;
 #endif
 
 #ifndef PRECOMPILE
@@ -43,28 +46,41 @@ int main(int argc, char **argv) {
     exit(0);
   }
 
+  char *file_contents;
+
   if (chad_args.compile) {
     log_print("Compiling %s", chad_args.filename);
 
-    FILE *out_file = fopen("chad_tmp.a", "wb");
-    fwrite(__target_chad_precompiled_a, sizeof(__target_chad_precompiled_a), 1, out_file);
+    file_contents = read_file_to_string(chad_args.filename);
+
+    system("mkdir -p tmp");
+
+    FILE *out_file = fopen("./tmp/chad_precompiled.a", "wb");
+    fwrite(__target_chad_precompiled_a, sizeof(__target_chad_precompiled_a), 1,
+           out_file);
     fclose(out_file);
 
-    system("mkdir tmp");
+    system("cd tmp && ar x ./chad_precompiled.a");
 
-    system("cd tmp && ar x ../chad_tmp.a");
+    system("cd tmp && ar x ./precompiled.a");
 
-    system("cd tmp && ar x precompiled.a");
+    system("cd tmp && touch tmp_src.c");
 
-    system("cd tmp && ld ./*.o -o final -lc -lcurl -lpthread -L./ -llibchad");
+    // char tmp_buff[256];
 
-    // system("chmod +x chad.out");
+    // sprintf(tmp_buff, "%s", );
+
+    // system();
+
+    system("cd tmp && gcc -c tmp_src.c");
+
+    system("ld ./tmp/*.o -o final -lc -lcurl -lpthread -L./tmp/ -llibchad");
+
+    // system("chmod +x ");
 
     log_print("Finished!");
     exit(0);
   }
-
-  char *file_contents;
 
   int remote = 0;
 
