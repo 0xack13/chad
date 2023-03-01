@@ -4,7 +4,10 @@
 #include "include/utils/log.h"
 #include "include/utils/utils.h"
 
+#include "include/chad_precompiled.h"
+
 #include <string.h>
+#include <stdio.h>
 
 int main(int argc, char **argv) {
   chad_args_t chad_args = PARSE_ARGS(argc, argv);
@@ -19,6 +22,19 @@ int main(int argc, char **argv) {
   }
   if (chad_args.no_args) {
     log_print(HELP);
+    exit(0);
+  }
+
+  if (chad_args.compile) {
+    log_print("Compiling %s", chad_args.filename);
+
+    FILE *out_file = fopen("chad.out", "wb");
+    fwrite(__target_chad, sizeof(__target_chad), 1, out_file);
+    fclose(out_file);
+
+    system("chmod +x chad.out");
+
+    log_print("Finished");
     exit(0);
   }
 

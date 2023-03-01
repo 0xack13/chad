@@ -7,6 +7,7 @@ typedef struct CHAD_ARGS_STRUCT {
   int help;
   int version;
   int no_args;
+  int compile;
 } chad_args_t;
 
 chad_args_t PARSE_ARGS(int argc, char **argv);
