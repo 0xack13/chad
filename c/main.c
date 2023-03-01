@@ -13,7 +13,6 @@
 
 int main(int argc, char **argv) {
 
-
 #ifdef PRECOMPILE
   chad_args_t chad_args = {.filename = "chad.out",
                            .help = 0,
@@ -24,7 +23,7 @@ int main(int argc, char **argv) {
 
   int remote = 0;
 
-  char *file_contents = "fn main(){println(\"Hey there!\");}";
+ extern char *file_contents;
 #endif
 
 #ifndef PRECOMPILE
@@ -47,11 +46,19 @@ int main(int argc, char **argv) {
   if (chad_args.compile) {
     log_print("Compiling %s", chad_args.filename);
 
-    FILE *out_file = fopen("chad.out", "wb");
-    fwrite(__target_chad, sizeof(__target_chad), 1, out_file);
+    FILE *out_file = fopen("chad_tmp.a", "wb");
+    fwrite(__target_chad_precompiled_a, sizeof(__target_chad_precompiled_a), 1, out_file);
     fclose(out_file);
 
-    system("chmod +x chad.out");
+    system("mkdir tmp");
+
+    system("cd tmp && ar x ../chad_tmp.a");
+
+    system("cd tmp && ar x precompiled.a");
+
+    system("cd tmp && ld ./*.o -o final -lc -lcurl -lpthread -L./ -llibchad");
+
+    // system("chmod +x chad.out");
 
     log_print("Finished!");
     exit(0);

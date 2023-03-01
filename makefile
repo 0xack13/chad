@@ -44,10 +44,15 @@ clean: make_dir
 
 precompile:
 	cd rust/libchad && cargo build --quiet --release
-	gcc -DPRECOMPILE -w -Os -o ./target/chad $(sources) -lcurl -L./rust/libchad/target/release -llibchad
-	strip ./target/chad
+	gcc -DPRECOMPILE -w -Os -c $(sources)
+	
+	mv ./*.o ./target
 
-	xxd -i ./target/chad > ./target/chad_precompiled.h
+	ar rcs ./target/precompiled.a ./target/*.o
+
+	ar r ./target/chad_precompiled.a ./target/precompiled.a ./rust/libchad/target/release/liblibchad.a 
+	
+	xxd -i ./target/chad_precompiled.a > ./target/chad_precompiled.h
 
 
 ./target/chad: make_dir ./c/include/*/*.h $(sources) precompile
