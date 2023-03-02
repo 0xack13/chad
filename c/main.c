@@ -43,6 +43,16 @@ char *str_replace(char *str, const char *old, const char *new) {
   return result;
 }
 
+char *remove_extension(char *filename) {
+  char *new_filename = malloc(strlen(filename) + 1);
+  strcpy(new_filename, filename);
+  char *dot = strrchr(new_filename, '.');
+  if (dot && dot != new_filename) {
+    *dot = '\0';
+  }
+  return new_filename;
+}
+
 char *replace_newlines_with_escapes(char *str) {
   size_t len = strlen(str);
   char *escaped_str = (char *)malloc(
@@ -60,6 +70,24 @@ char *replace_newlines_with_escapes(char *str) {
 
   escaped_str[j] = '\0'; // null-terminate the string
   return escaped_str;
+}
+
+char *extract_filename(const char *path) {
+  char *filename = NULL;
+  const char *last_slash = strrchr(path, '/');
+  if (last_slash) {
+    const char *dot = strrchr(last_slash, '.');
+    if (dot && dot != last_slash) {
+      filename = malloc(dot - last_slash);
+      strncpy(filename, last_slash + 1, dot - last_slash - 1);
+      filename[dot - last_slash - 1] = '\0';
+    } else {
+      filename = strdup(last_slash + 1);
+    }
+  } else {
+    filename = strdup(path);
+  }
+  return remove_extension(filename);
 }
 
 int main(int argc, char **argv) {
@@ -100,7 +128,7 @@ int main(int argc, char **argv) {
   char *file_contents;
 
   if (chad_args.compile) {
-    log_print("Compiling %s", chad_args.filename);
+    log_print("Compiling `%s`", chad_args.filename);
 
     file_contents = read_file_to_string(chad_args.filename);
 
@@ -133,12 +161,22 @@ int main(int argc, char **argv) {
     system("cd tmp && gcc -c tmp_src.c");
 
     // FIXME: linking fails because of rust library
-    // system("ld -e main ./tmp/*.o -o chad.out -L./tmp/ -llibchad -L/usr/lib/gcc/x86_64-linux-gnu/12/ -lgcc_s -lstdc++ -lc -lcurl");
-    system("gcc -Os ./tmp/*.o -o chad.out -L./tmp/ -llibchad -lcurl");
+    // system("ld -e main ./tmp/*.o -o chad.out -L./tmp/ -llibchad
+    // -L/usr/lib/gcc/x86_64-linux-gnu/12/ -lgcc_s -lstdc++ -lc -lcurl");
+    char command[1024];
 
-    system("chmod +x chad.out");
+    char *exec_name = extract_filename(chad_args.filename);
+    log_print("creating executable `%s`", exec_name);
 
-    system("strip chad.out");
+    sprintf(command, "gcc -Os ./tmp/*.o -o %s -L./tmp/ -llibchad -lcurl",
+            exec_name);
+    system(command);
+
+    sprintf(command, "chmod +x %s", exec_name);
+    system(command);
+
+    sprintf(command, "strip %s", exec_name);
+    system(command);
 
     system("rm -r tmp");
 
