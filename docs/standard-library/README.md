@@ -1,0 +1,3 @@
+# Chad programming language (STANDARD LIBRARY DOCUMENTATION)
+
+>**Warning**: THIS PAGE IS A WORK IN PROGRESS
