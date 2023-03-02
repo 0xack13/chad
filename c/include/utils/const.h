@@ -32,6 +32,6 @@ EXAMPLES:\n\
   chad run ./hello-chad.chad -e my_function\n\
 \n"
 
-#define VERSION "Chad 0.7.2"
+#define VERSION "Chad 0.11.2"
 
 #endif
