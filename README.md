@@ -12,7 +12,7 @@ C      H   H A   A D   D
 ```
 
 Chad is a high-level, general-purpose programming language, similar to Rust, C, and JavaScript.
-
+Chad scripts can be interpreted directly, like Javascript/Python or compiled into binary executables like C/Rust, hence it is called an interpreter-compiler.
 ## Example
 
 Below is a hello world program written in Chad:
@@ -36,7 +36,7 @@ The [examples](https://github.com/0xhiro/chad/tree/master/examples) directory co
 * Security features such as explicit filesystem and networking permissions 
 * Specify entry function to the interpreter
 * Scripts can be interpreted directly
-* Scripts can be compiled to binary executables (🚧 pending)
+* Scripts can be compiled to binary executables
 * Detailed error reporting
 * Standard library for networking, and frequently used utilities
 * Very tiny interpreter, as small as 400KB
