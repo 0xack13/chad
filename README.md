@@ -23,6 +23,22 @@ Below is a hello world program written in Chad:
   }
 ```
 
+Below is a simple math function:
+
+```rust
+fn add_numbers(x: int, y: int) -> int {
+    let result = x + y;
+
+    return result;
+}
+
+fn main() {
+    let res: int = add_numbers(5, 10);
+
+    println("Res is: ", res);
+}
+```
+
 The [examples](https://github.com/0xhiro/chad/tree/master/examples) directory contains more sample scripts.
 
 ## Features
