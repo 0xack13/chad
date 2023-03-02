@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
 
     file_contents = read_file_to_string(chad_args.filename);
 
-    system("mkdir -p tmp && cd tmp && rm ./*.o ./*.a ./*.c");
+    system("mkdir -p tmp");
 
     FILE *out_file = fopen("./tmp/chad_precompiled.a", "wb");
     fwrite(__target_chad_precompiled_a, sizeof(__target_chad_precompiled_a), 1,
@@ -129,19 +129,18 @@ int main(int argc, char **argv) {
     fprintf(tmp_file, "char *file_contents = \"%s\"; \n", escaped_contents);
 
     fclose(tmp_file);
-    // char tmp_buff[256];
-
-    // sprintf(tmp_buff, "%s", );
-
-    // system();
 
     system("cd tmp && gcc -c tmp_src.c");
 
     // FIXME: linking fails because of rust library
-    system("ld ./tmp/*.o -o final -lc -lcurl -L./tmp/ -llibchad -lc "
-           "-L/usr/lib/gcc/x86_64-linux-gnu/12/ -lgcc_s");
+    // system("ld -e main ./tmp/*.o -o chad.out -L./tmp/ -llibchad -L/usr/lib/gcc/x86_64-linux-gnu/12/ -lgcc_s -lstdc++ -lc -lcurl");
+    system("gcc -Os ./tmp/*.o -o chad.out -L./tmp/ -llibchad -lcurl");
 
-    system("chmod +x final");
+    system("chmod +x chad.out");
+
+    system("strip chad.out");
+
+    system("rm -r tmp");
 
     log_print("Finished!");
     exit(0);
