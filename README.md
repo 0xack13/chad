@@ -34,14 +34,13 @@ The [examples](https://github.com/0xhiro/chad/tree/master/examples) directory co
 * Dynamic typing with optional static typing
 * Remote code execution using URLs
 * Security features such as explicit filesystem and networking permissions 
-* Specify entry function to the interpreter
+* Specify entry function to the interpreter-compiler
 * Scripts can be interpreted directly
 * Scripts can be compiled to binary executables
 * Detailed error reporting
 * Standard library for networking, and frequently used utilities
-* Very tiny interpreter, as small as 400KB
 * Variadic functions
-* External files, modules and libraries
+* Import external files, modules and libraries
 * Chad files end with `.chad` extension
 
 ## Quick start
@@ -73,13 +72,13 @@ The [examples](https://github.com/0xhiro/chad/tree/master/examples) directory co
 
 ## Motivation
 
-## Documentation
+## Language Documentation
 
-Documentation can be found in the [docs](https://github.com/0xhiro/chad/tree/master/docs) directory.
+Documentation for the Chad language can be found in the [docs](https://github.com/0xhiro/chad/tree/master/docs) directory.
 
-## Developer Documentation
+## Interpreter-Compiler Documentation
 
-Documentation for the Chad interpreter can be found in the [dev-docs](https://github.com/0xhiro/chad/tree/master/dev-docs) directory.
+Documentation for the Chad interpreter-compiler can be found in the [dev-docs](https://github.com/0xhiro/chad/tree/master/dev-docs) directory.
 
 ## Contribution
 
