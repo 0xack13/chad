@@ -60,7 +60,7 @@ precompile:
 	gcc -w -Os -o $@ $(sources) -lcurl -L./rust/libchad/target/release -llibchad
 	strip $@
  
-./target/chad-debug: make_dir ./c/include/*/*.h $(sources)
+./target/chad-debug: make_dir ./c/include/*/*.h $(sources) precompile
 	cd rust/libchad && cargo build --quiet
 	gcc -w -g -o $@ $(sources) -lcurl -L./rust/libchad/target/debug -llibchad
 
