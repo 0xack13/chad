@@ -32,6 +32,85 @@ static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,
   return realsize;
 }
 
+char *str_replace(char *str, const char *old, const char *neww) {
+  char *result;
+  int i, count = 0;
+  size_t newlen = strlen(neww);
+  size_t oldlen = strlen(old);
+
+  for (i = 0; str[i] != '\0';) {
+    if (strstr(&str[i], old) == &str[i]) {
+      count++;
+      i += oldlen;
+    } else {
+      i++;
+    }
+  }
+
+  result = (char *)malloc(i + count * (newlen - oldlen) + 1);
+
+  i = 0;
+  while (*str) {
+    if (strstr(str, old) == str) {
+      strcpy(&result[i], neww);
+      i += newlen;
+      str += oldlen;
+    } else {
+      result[i++] = *str++;
+    }
+  }
+
+  result[i] = '\0';
+  return result;
+}
+
+char *remove_extension(char *filename) {
+  char *new_filename = malloc(strlen(filename) + 1);
+  strcpy(new_filename, filename);
+  char *dot = strrchr(new_filename, '.');
+  if (dot && dot != new_filename) {
+    *dot = '\0';
+  }
+  return new_filename;
+}
+
+char *replace_newlines_with_escapes(char *str) {
+  size_t len = strlen(str);
+  char *escaped_str = (char *)malloc(
+      len * 2 + 1); // allocate enough memory for worst-case scenario
+  size_t j = 0;
+
+  for (size_t i = 0; i < len; i++) {
+    if (str[i] == '\n') {
+      escaped_str[j++] = '\\';
+      escaped_str[j++] = 'n';
+    } else {
+      escaped_str[j++] = str[i];
+    }
+  }
+
+  escaped_str[j] = '\0'; // null-terminate the string
+  return escaped_str;
+}
+
+char *extract_filename(const char *path) {
+  char *filename = NULL;
+  const char *last_slash = strrchr(path, '/');
+  if (last_slash) {
+    const char *dot = strrchr(last_slash, '.');
+    if (dot && dot != last_slash) {
+      filename = malloc(dot - last_slash);
+      strncpy(filename, last_slash + 1, dot - last_slash - 1);
+      filename[dot - last_slash - 1] = '\0';
+    } else {
+      filename = strdup(last_slash + 1);
+    }
+  } else {
+    filename = strdup(path);
+  }
+  return remove_extension(filename);
+}
+
 char *http_get(char *url) {
   CURL *curl_handle;
   CURLcode res;

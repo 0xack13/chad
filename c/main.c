@@ -1,94 +1,8 @@
-#include "include/runtime/runtime.h"
-#include "include/utils/args.h"
+#include "include/compiler/compiler.h"
 #include "include/utils/const.h"
-#include "include/utils/log.h"
 #include "include/utils/utils.h"
 
-#ifndef PRECOMPILE
-#include "../target/chad_precompiled.h"
-#endif
-
-#include <stdio.h>
 #include <string.h>
-
-char *str_replace(char *str, const char *old, const char *new) {
-  char *result;
-  int i, count = 0;
-  size_t newlen = strlen(new);
-  size_t oldlen = strlen(old);
-
-  for (i = 0; str[i] != '\0';) {
-    if (strstr(&str[i], old) == &str[i]) {
-      count++;
-      i += oldlen;
-    } else {
-      i++;
-    }
-  }
-
-  result = (char *)malloc(i + count * (newlen - oldlen) + 1);
-
-  i = 0;
-  while (*str) {
-    if (strstr(str, old) == str) {
-      strcpy(&result[i], new);
-      i += newlen;
-      str += oldlen;
-    } else {
-      result[i++] = *str++;
-    }
-  }
-
-  result[i] = '\0';
-  return result;
-}
-
-char *remove_extension(char *filename) {
-  char *new_filename = malloc(strlen(filename) + 1);
-  strcpy(new_filename, filename);
-  char *dot = strrchr(new_filename, '.');
-  if (dot && dot != new_filename) {
-    *dot = '\0';
-  }
-  return new_filename;
-}
-
-char *replace_newlines_with_escapes(char *str) {
-  size_t len = strlen(str);
-  char *escaped_str = (char *)malloc(
-      len * 2 + 1); // allocate enough memory for worst-case scenario
-  size_t j = 0;
-
-  for (size_t i = 0; i < len; i++) {
-    if (str[i] == '\n') {
-      escaped_str[j++] = '\\';
-      escaped_str[j++] = 'n';
-    } else {
-      escaped_str[j++] = str[i];
-    }
-  }
-
-  escaped_str[j] = '\0'; // null-terminate the string
-  return escaped_str;
-}
-
-char *extract_filename(const char *path) {
-  char *filename = NULL;
-  const char *last_slash = strrchr(path, '/');
-  if (last_slash) {
-    const char *dot = strrchr(last_slash, '.');
-    if (dot && dot != last_slash) {
-      filename = malloc(dot - last_slash);
-      strncpy(filename, last_slash + 1, dot - last_slash - 1);
-      filename[dot - last_slash - 1] = '\0';
-    } else {
-      filename = strdup(last_slash + 1);
-    }
-  } else {
-    filename = strdup(path);
-  }
-  return remove_extension(filename);
-}
 
 int main(int argc, char **argv) {
 
@@ -128,60 +42,7 @@ int main(int argc, char **argv) {
   char *file_contents;
 
   if (chad_args.compile) {
-    log_print("Compiling `%s`", chad_args.filename);
-
-    file_contents = read_file_to_string(chad_args.filename);
-
-    system("mkdir -p tmp");
-
-    FILE *out_file = fopen("./tmp/chad_precompiled.a", "wb");
-    fwrite(__target_chad_precompiled_a, sizeof(__target_chad_precompiled_a), 1,
-           out_file);
-    fclose(out_file);
-
-    system("cd tmp && ar x ./chad_precompiled.a");
-
-    system("cd tmp && ar x ./precompiled.a");
-
-    system("cd tmp && touch tmp_src.c");
-
-    //
-    FILE *tmp_file = fopen("./tmp/tmp_src.c", "a");
-
-    fprintf(tmp_file, "char* start_fn = \"%s\"; \n", chad_args.start);
-
-    fprintf(tmp_file, "char* filename = \"%s\"; \n", chad_args.filename);
-
-    char *contents = str_replace(file_contents, "\"", "\\\"");
-    char *escaped_contents = replace_newlines_with_escapes(contents);
-    fprintf(tmp_file, "char *file_contents = \"%s\"; \n", escaped_contents);
-
-    fclose(tmp_file);
-
-    system("cd tmp && gcc -c tmp_src.c");
-
-    // FIXME: linking fails because of rust library
-    // system("ld -e main ./tmp/*.o -o chad.out -L./tmp/ -llibchad
-    // -L/usr/lib/gcc/x86_64-linux-gnu/12/ -lgcc_s -lstdc++ -lc -lcurl");
-    char command[1024];
-
-    char *exec_name = extract_filename(chad_args.filename);
-    log_print("creating executable `%s`", exec_name);
-
-    sprintf(command, "gcc -Os ./tmp/*.o -o %s -L./tmp/ -llibchad -lcurl",
-            exec_name);
-    system(command);
-
-    sprintf(command, "chmod +x %s", exec_name);
-    system(command);
-
-    sprintf(command, "strip %s", exec_name);
-    system(command);
-
-    system("rm -r tmp");
-
-    log_print("Finished!");
-    exit(0);
+    compile(chad_args);
   }
 
   int remote = 0;

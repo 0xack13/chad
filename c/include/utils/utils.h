@@ -45,6 +45,14 @@ typedef enum {
   INVALID
 } NumberFormat;
 
+char *str_replace(char *str, const char *old, const char *neww);
+
+char *replace_newlines_with_escapes(char *str);
+
+char *remove_extension(char *filename);
+
+char *extract_filename(const char *path);
+
 void panic(char *message);
 
 char *read_file_to_string(char *filename);
