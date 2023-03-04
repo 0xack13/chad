@@ -30,6 +30,8 @@ EXAMPLES:\n\
   chad run ./hello-world.chad\n\
   chad run https://hiro.codes/files/hello.chad\n\
   chad run ./hello-chad.chad -e my_function\n\
+  \n\
+  chad compile ./hello-world.chad\n\
 \n"
 
 #define VERSION "Chad 0.11.2"

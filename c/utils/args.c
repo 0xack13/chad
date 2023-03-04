@@ -13,6 +13,9 @@ chad_args_t PARSE_ARGS(int argc, char **argv) {
   static int version_flag = 0;
   int compile_flag = 0;
   int run_flag = 0;
+  int new_flag = 0;
+  int init_flag = 0;
+  int compile_run_flag = 0;
 
   char *non_opt_arg = NULL;
   char *non_opt_arg2 = NULL;
@@ -85,9 +88,17 @@ chad_args_t PARSE_ARGS(int argc, char **argv) {
       run_flag = 1;
     } else if (strcmp(command, "help") == 0) {
       help_flag = 1;
+    } else if (strcmp(command, "new") == 0) {
+      new_flag = 1;
+    } else if (strcmp(command, "init") == 0) {
+      init_flag = 1;
     } else if (strcmp(command, "compile") == 0) {
       filename = command_option;
       compile_flag = 1;
+    } else if (strcmp(command, "compile-run") == 0) {
+      filename = command_option;
+      compile_flag = 1;
+      compile_run_flag = 1;
     } else {
       log_error(NULL, "unknown command `%s`", command);
     }
@@ -103,7 +114,10 @@ chad_args_t PARSE_ARGS(int argc, char **argv) {
                            .start = e_arg,
                            .no_args = no_args,
                            .compile = compile_flag,
-                           .run = run_flag};
+                           .run = run_flag,
+                           .neww = new_flag,
+                           .init = init_flag,
+                           .compile_run = compile_run_flag};
 
   return chad_args;
 }

@@ -17,7 +17,10 @@ int main(int argc, char **argv) {
                            .start = start_fn,
                            .no_args = 0,
                            .compile = 0,
-                           .run = 0};
+                           .run = 0,
+                           .neww = 0,
+                           .init = 0,
+                           .compile_run = 0};
 
   int remote = 0;
 
@@ -32,19 +35,37 @@ int main(int argc, char **argv) {
     log_print(HELP);
     exit(0);
   }
+
   if (chad_args.version) {
     log_print(VERSION);
     exit(0);
   }
+
   if (chad_args.no_args) {
     log_print(HELP);
+    exit(0);
+  }
+
+  if (chad_args.neww) {
+    log_print("NEW TODO");
+    exit(0);
+  }
+
+  if (chad_args.init) {
+    log_print("INIT TODO");
     exit(0);
   }
 
   char *file_contents;
 
   if (chad_args.compile) {
-    compile(chad_args);
+    char *exec_name = compile(chad_args);
+
+    if (chad_args.compile_run) {
+      system(exec_name);
+    }
+
+    exit(0);
   }
 
   int remote = 0;
@@ -74,7 +95,7 @@ int main(int argc, char **argv) {
   } else {
     change_working_dir("./");
   }
-  
+
   interpret(chad_args, file_contents);
 
   return 0;

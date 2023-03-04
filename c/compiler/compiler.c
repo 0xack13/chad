@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-void compile(chad_args_t chad_args) {
+char* compile(chad_args_t chad_args) {
   log_print("Compiling `%s`", chad_args.filename);
 
   char *file_contents = read_file_to_string(chad_args.filename);
@@ -56,7 +56,8 @@ void compile(chad_args_t chad_args) {
   system("rm -r tmp");
 
   log_print("Finished!");
-  exit(0);
+
+  return chad_args.filename;
 }
 
 #endif
