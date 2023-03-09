@@ -79,9 +79,8 @@ int main(int argc, char **argv) {
 
 #endif
 
-  if (!file_has_extension(chad_args.filename, ".chad") &&
-      !file_has_extension(chad_args.filename, ".chd")) {
-    log_warning(NULL, "%s does not have a .chad or .chd extension",
+  if (!file_has_extension(chad_args.filename, ".chad")) {
+    log_warning(NULL, "%s does not have a .chad extension",
                 chad_args.filename);
   }
 
