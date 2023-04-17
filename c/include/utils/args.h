@@ -3,6 +3,7 @@
 
 typedef struct CHAD_ARGS_STRUCT {
   char *filename;
+  char* package_name;
   char *start;
   int help;
   int version;

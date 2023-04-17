@@ -57,6 +57,7 @@ chad_args_t PARSE_ARGS(int argc, char **argv) {
 
   int has_manifest = 0;
   char *filename = NULL;
+  char *package_name = NULL;
 
   has_manifest = file_exists("./chad.chad");
 
@@ -89,8 +90,10 @@ chad_args_t PARSE_ARGS(int argc, char **argv) {
     } else if (strcmp(command, "help") == 0) {
       help_flag = 1;
     } else if (strcmp(command, "new") == 0) {
+      package_name = command_option;
       new_flag = 1;
     } else if (strcmp(command, "init") == 0) {
+      package_name = command_option;
       init_flag = 1;
     } else if (strcmp(command, "compile") == 0) {
       filename = command_option;
@@ -109,6 +112,7 @@ chad_args_t PARSE_ARGS(int argc, char **argv) {
   }
 
   chad_args_t chad_args = {.filename = filename,
+                           .package_name = package_name,
                            .help = help_flag,
                            .version = version_flag,
                            .start = e_arg,

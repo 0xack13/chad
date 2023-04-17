@@ -17,10 +17,10 @@ USAGE:\n\
 COMMANDS:\n\
   run            run a script.\n\
   help           show this screen.\n\
-  new            create a new chad crate\n\
-  init           initialize a new chad crate\n\
-  compile        compile the script to a binary executable\n\
-  compile-run    compile and run the script as a binary executable\n\
+  new            create a new chad package\n\
+  init           initialize a new chad package\n\
+  compile        compile a script into a binary executable\n\
+  compile-run    compile and run a script as a binary executable\n\
 OPTIONS:\n\
   -h --help      Show this screen.\n\
   -v --version   Show installed version.\n\
@@ -32,6 +32,7 @@ EXAMPLES:\n\
   chad run ./hello-chad.chad -e my_function\n\
   \n\
   chad compile ./hello-world.chad\n\
+  chad new my_package\n\
 \n"
 
 #define VERSION "Chad 0.11.2"

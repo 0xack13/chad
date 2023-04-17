@@ -47,12 +47,13 @@ int main(int argc, char **argv) {
   }
 
   if (chad_args.neww) {
-    log_print("NEW TODO");
+    create_package(chad_args);
+    
     exit(0);
   }
 
   if (chad_args.init) {
-    log_print("INIT TODO");
+    init_package(chad_args);;
     exit(0);
   }
 

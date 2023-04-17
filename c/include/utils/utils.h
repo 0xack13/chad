@@ -3,6 +3,7 @@
 
 #include "../parser/parser.h"
 #include "../runtime/runtime.h"
+#include "../utils/args.h"
 
 #define SPACE_CHAR ' '
 #define NEWLINE_CHAR 10
@@ -44,6 +45,11 @@ typedef enum {
   BINARY,
   INVALID
 } NumberFormat;
+
+
+void create_package(chad_args_t chad_args);
+
+void init_package(chad_args_t chad_args);
 
 char *str_replace(char *str, const char *old, const char *neww);
 

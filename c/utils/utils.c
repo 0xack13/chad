@@ -1,4 +1,5 @@
 #include "../include/utils/utils.h"
+#include "../include/utils/args.h"
 #include "../include/utils/log.h"
 
 #include <ctype.h>
@@ -12,6 +13,36 @@ struct MemoryStruct {
   char *memory;
   size_t size;
 };
+
+void create_package(chad_args_t chad_args) {
+  char command[1024];
+
+  sprintf(command, "Creating package %s", chad_args.package_name);
+  log_print(command);
+  
+  sprintf(command, "mkdir %s", chad_args.package_name);
+  system(command);
+
+  sprintf(command, "cd %s && touch chad.chad && mkdir target && touch .gitignore && mkdir chad && touch ./chad/main.chad", chad_args.package_name);
+  system(command);
+
+  sprintf(command, "cd %s && echo \"fn main() { \n    println(\\\"Hello world\\\"); \n}  \" > ./chad/main.chad", chad_args.package_name);
+  system(command);
+}
+
+
+void init_package(chad_args_t chad_args) {
+  char command[1024];
+
+  sprintf(command, "Creating package %s", chad_args.package_name);
+  log_print(command);
+  
+  sprintf(command, "touch chad.chad && mkdir target && touch .gitignore && mkdir chad && touch ./chad/main.chad");
+  system(command);
+
+  sprintf(command, "echo \"fn main() { \n    println(\\\"Hello world\\\"); \n}  \" > ./chad/main.chad");
+  system(command);
+}
 
 static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,
                                   void *userp) {
